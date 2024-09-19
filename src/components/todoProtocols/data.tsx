@@ -81,3 +81,73 @@ export const subFolderOptions = [
   "Post-Op Care",
   "Operating Room Equipment",
 ];
+
+const departmentSubfolders: Record<string, string[]> = {
+  "Anesthesias department": [
+    "Protocols",
+    "Medications",
+    "Patient Records",
+    "Training",
+  ],
+  Csa: ["Administration", "Scheduling", "Patient Coordination", "Training"],
+  Facility: [
+    "Maintenance",
+    "Safety Protocols",
+    "Equipment Inventory",
+    "Staff Schedules",
+  ],
+  Logistics: [
+    "Supplies Management",
+    "Order Tracking",
+    "Vendor Contacts",
+    "Shipping",
+  ],
+  "Medical Clinic Velsen": [
+    "Patient Records",
+    "Appointments",
+    "Billing",
+    "Staff",
+  ],
+  "Medical Specialist department": [
+    "Protocols",
+    "Consultations",
+    "Patient Records",
+    "Referrals",
+  ],
+  "Ok assisting protocols": [
+    "Surgical Checklists",
+    "Sterilization",
+    "Equipment Preparation",
+    "Emergency Protocols",
+  ],
+  "P&O": [
+    "HR Policies",
+    "Payroll",
+    "Employee Records",
+    "Training & Development",
+  ],
+  "Outpatient clinic": [
+    "Patient Records",
+    "Scheduling",
+    "Billing",
+    "Lab Results",
+  ],
+  Radiology: [
+    "Scans",
+    "Reports",
+    "Equipment Maintenance",
+    "Patient Scheduling",
+  ],
+  "Recovery department": [
+    "Patient Care",
+    "Medications",
+    "Discharge Protocols",
+    "Monitoring",
+  ],
+  "Nursing Department": [
+    "Patient Care",
+    "Shift Schedules",
+    "Training",
+    "Supplies",
+  ],
+};

@@ -8,3 +8,4 @@ export * from './plusIcon';
 export * from './addSquareIcon';
 export * from './downloadIcon';
 export * from './dropwDownIcon';
+export * from './uploadCancelIcon';
