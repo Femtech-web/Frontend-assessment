@@ -45,8 +45,6 @@ export const taskData = [
   },
 ];
 
-export const options = ["option 1", "option 2", "option 3", "option 4"];
-
 export const departmentOptions = [
   "Anesthesias department",
   "Csa",
@@ -82,7 +80,7 @@ export const subFolderOptions = [
   "Operating Room Equipment",
 ];
 
-const departmentSubfolders: Record<string, string[]> = {
+export const departmentSubfolders: Record<string, string[]> = {
   "Anesthesias department": [
     "Protocols",
     "Medications",

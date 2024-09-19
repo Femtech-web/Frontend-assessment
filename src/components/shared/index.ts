@@ -3,6 +3,7 @@ export * from './custom-input';
 export * from './function-selector';
 export * from './custom-radio';
 export * from './custom-fileUpload';
+export * from './chatbtn';
 
 export const baseStyles = {
   box: {

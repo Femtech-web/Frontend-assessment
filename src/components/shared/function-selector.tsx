@@ -1,3 +1,4 @@
+"use client";
 import { Flex, Button, VStack, Box, Text, Heading } from "@chakra-ui/react";
 import { CustomSelect } from "./custom-select";
 import { IFunctionSelector, IGroupListing } from "@/types";
@@ -7,7 +8,6 @@ import { baseStyles } from ".";
 
 export function SelectionGroupListing({
   groups,
-  handleChange,
   sectionAOptions,
   sectionBOptions,
   removeGroup,
@@ -15,6 +15,7 @@ export function SelectionGroupListing({
   sectionBPlaceholder,
   fieldALabel,
   fieldBLabel,
+  handleSelection,
 }: IGroupListing) {
   return (
     <VStack spacing={4} align="stretch">
@@ -25,16 +26,22 @@ export function SelectionGroupListing({
             options={sectionAOptions}
             label={fieldALabel}
             placeholder={sectionAPlaceholder}
-            value={group.fieldA}
-            onChange={(value) => handleChange(group.id, "fieldA", value)}
+            name=""
+            value={group[fieldALabel.toLowerCase()]}
+            onChange={(value) =>
+              handleSelection(value, group.id, fieldALabel.toLowerCase())
+            }
           />
           <CustomSelect
             isRequired
             options={sectionBOptions}
             label={fieldBLabel}
             placeholder={sectionBPlaceholder}
-            value={group.fieldB}
-            onChange={(value) => handleChange(group.id, "fieldB", value)}
+            value={group[fieldBLabel.toLowerCase()]}
+            name=""
+            onChange={(value) =>
+              handleSelection(value, group.id, fieldBLabel.toLowerCase())
+            }
           />
           {groups.length > 1 && (
             <Button
@@ -88,8 +95,20 @@ export function FunctionSelector({
   sectionBOptions,
   noOfLines,
   isSmall,
+  setFormData,
+  formData,
+  name,
+  handleSelect,
 }: IFunctionSelector) {
-  const { groups, addGroup, removeGroup, handleChange } = useSelection();
+  const { groups, addGroup, removeGroup, handleChange } = useSelection(
+    "function",
+    "colleague"
+  );
+
+  const handleSelection = (value: string, id: string, fieldName: string) => {
+    const updatedGroups = handleChange(id, fieldName, value);
+    handleSelect(updatedGroups, name, setFormData, formData);
+  };
 
   return (
     <Box sx={baseStyles.box} w="50%" minH="14rem" h="fit-content">
@@ -113,8 +132,8 @@ export function FunctionSelector({
           sectionBPlaceholder="Select Colleague"
           fieldALabel="Function"
           fieldBLabel="Colleague"
-          handleChange={handleChange}
           removeGroup={removeGroup}
+          handleSelection={handleSelection}
         />
       </Flex>
     </Box>

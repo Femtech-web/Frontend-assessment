@@ -6,14 +6,14 @@ export const styles = {
       boxSizing: 'border-box'
     },
     '::-webkit-scrollbar': {
-      width: '4px',
+      width: '2px',
     },
     '::-webkit-scrollbar-track': {
       background: '#f1f1f1',
     },
     '::-webkit-scrollbar-thumb': {
       background: 'brandBorder.1',
-      borderRadius: '8px',
+      borderRadius: '6px',
     },
     'body, html': {
       overflowX: 'hidden',

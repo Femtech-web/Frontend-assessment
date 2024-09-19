@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface InputProps {
   label: string;
@@ -6,8 +6,9 @@ export interface InputProps {
   isRequired: boolean;
   type: string;
   inputMode?: any;
-  value?: string;
-  name?: string;
+  value: string;
+  name: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface SelectProps {
@@ -16,7 +17,8 @@ export interface SelectProps {
   placeholder: string;
   isRequired: boolean;
   value?: string;
-  onChange: (value: string) => void;
+  name: string;
+  onChange: (value: string, name: string) => void;
 }
 
 export interface IFunctionSelector {
@@ -26,6 +28,14 @@ export interface IFunctionSelector {
   sectionBOptions: string[];
   noOfLines?: number;
   isSmall?: boolean;
+  setFormData: setStateAction<Record<string, any>[]>;
+  formData: Record<string, any>;
+  handleSelect: (
+    selectedOption: any,
+    name: string,
+    setFormData: setStateAction<any>,
+    formType: Record<string, any>) => void;
+  name: string;
 }
 
 export interface IGroupListing {
@@ -36,8 +46,8 @@ export interface IGroupListing {
   sectionBPlaceholder: string;
   fieldALabel: string;
   fieldBLabel: string;
-  handleChange: (id: string, field: string, value: string) => void;
   removeGroup: (id: string) => void;
+  handleSelection: (value: string, id: string, fieldName: string) => void;
 }
 
 export interface IFormControl {

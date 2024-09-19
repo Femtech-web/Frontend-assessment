@@ -1,4 +1,4 @@
-import ProtocolUploadPage from "./protocols";
+import ProtocolUploadPage from "./protocol";
 
 export {
   ProtocolUploadPage

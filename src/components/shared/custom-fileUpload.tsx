@@ -1,4 +1,5 @@
-import { ChangeEvent, MutableRefObject } from "react";
+"use client";
+import { ChangeEvent, MutableRefObject, DragEvent } from "react";
 import {
   FormControl,
   FormLabel,
@@ -17,11 +18,15 @@ import {
 } from "@/assets/icons/todo-protocol-page";
 import { IFormControl, setStateAction } from "@/types";
 import { useFileUpload } from "@/hooks";
+import { useProtocolUploadContext } from "@/context/protocol-upload.context";
 
 interface IDefaultState {
   fileInput: MutableRefObject<HTMLInputElement | null>;
   handleUploadClick: () => void;
   handleFileUpload: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleDragLeave: () => void;
+  handleDragOver: (e: DragEvent<HTMLDivElement>) => void;
+  handleDrop: (e: DragEvent<HTMLDivElement>) => void;
 }
 
 interface IUploadState {
@@ -34,9 +39,19 @@ function DefaultState({
   handleUploadClick,
   fileInput,
   handleFileUpload,
+  handleDragLeave,
+  handleDragOver,
+  handleDrop,
 }: IDefaultState) {
   return (
-    <Flex align="center" flexDir="column" gap={1}>
+    <Flex
+      align="center"
+      flexDir="column"
+      gap={1}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       <DownloadIcon h="5" w="5" />
       <HStack spacing={1}>
         <Text color="grayscale.300" fontWeight={500}>
@@ -71,8 +86,8 @@ function UploadState({
     <VStack align="stretch" spacing={3} w="100%">
       <Flex justify="space-between">
         <Flex align="center" gap={3}>
-          <Text fontWeight={500}>{fileName.split("-")[0]}</Text>
-          <Text fontWeight={400}>{fileName.split("-")[1]}</Text>
+          <Text fontWeight={500}>{fileName.split("/")[0]}</Text>
+          <Text fontWeight={400}>{fileName.split("/")[1]}</Text>
         </Flex>
         <IconButton
           icon={<UploadCancelIcon h="5" w="5" />}
@@ -110,15 +125,17 @@ function UploadState({
 }
 
 export function CustomFileUpload({ label, isRequired }: IFormControl) {
+  const { setSelectedFiles, selectedFiles } = useProtocolUploadContext();
   const {
     uploadState,
     handleUploadClick,
     handleFileUpload,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
     fileName,
     fileInput,
-    selectedFiles,
-    setSelectedFiles,
-  } = useFileUpload();
+  } = useFileUpload(setSelectedFiles);
 
   const fileIsLoaded = selectedFiles && selectedFiles?.length > 0;
 
@@ -140,6 +157,9 @@ export function CustomFileUpload({ label, isRequired }: IFormControl) {
             fileInput={fileInput}
             handleFileUpload={handleFileUpload}
             handleUploadClick={handleUploadClick}
+            handleDragLeave={handleDragLeave}
+            handleDragOver={handleDragOver}
+            handleDrop={handleDrop}
           />
         ) : (
           <UploadState

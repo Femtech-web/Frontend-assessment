@@ -2,6 +2,7 @@ export const colors = {
   brandGreen: {
     100: "#E9F5F7",
     400: "#75C5C1",
+    500: "#75C5C1"
   },
   grayscale: {
     50: '#E9E9E9',

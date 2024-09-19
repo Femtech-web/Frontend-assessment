@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { SelectProps } from "@/types";
 import {
@@ -19,13 +21,14 @@ export function CustomSelect({
   placeholder,
   isRequired,
   value,
+  name,
   onChange,
 }: SelectProps) {
   const [selectedOption, setSelectedOption] = useState<any>(value);
 
   const handleSelect = (option: string) => {
     setSelectedOption(option);
-    onChange(option);
+    onChange(option, name);
   };
 
   return (

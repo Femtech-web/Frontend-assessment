@@ -5,8 +5,11 @@ import { Flex, Button, HStack } from "@chakra-ui/react";
 import { FormLevelOne } from "./form-level.one";
 import { FormLevelTwo } from "./form-level.two";
 import { FormLevelThree } from "./form-level.three";
+import { useProtocolUploadContext } from "@/context/protocol-upload.context";
 
 export const ProtocolUploadForm = () => {
+  const { logData } = useProtocolUploadContext();
+
   return (
     <Flex
       rounded="primary"
@@ -33,6 +36,7 @@ export const ProtocolUploadForm = () => {
             bgColor: "brandPurple",
             opacity: 0.9,
           }}
+          onClick={logData}
         >
           Submit
         </Button>

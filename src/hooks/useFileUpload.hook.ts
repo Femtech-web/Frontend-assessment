@@ -1,17 +1,25 @@
-import { useState, useRef, ChangeEvent } from "react";
+import { useState, useRef, ChangeEvent, DragEvent } from "react";
+import { formatFileSize } from "@/utils/file.util";
+import { trimFileName } from "@/utils/string.util";
+import { setStateAction } from "@/types";
 
-export const useFileUpload = () => {
+export const useFileUpload = (setSelectedFiles: setStateAction<FileList | null>) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [uploadState, setUploadState] = useState<number>(0);
   const [fileName, setFileName] = useState<string>("");
-  const [selectedFiles, setSelectedFiles] = useState<null | FileList>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const formatFileSize = (size: number): string => {
-    if (size < 1024) return `${size} bytes`;
-    else if (size < 1024 * 1024) return `${(size / 1024).toFixed(2)} KB`;
-    else return `${(size / (1024 * 1024)).toFixed(2)} MB`;
-  };
 
+  const uploadFile = (files: FileList) => {
+    setSelectedFiles(files);
+    const fileSize = formatFileSize(files[0].size);
+
+    setUploadState(80);
+    const trimmedName = trimFileName(files[0].name);
+    setFileName(`${trimmedName}/${fileSize}`);
+  }
+
+  // manual upload functions
   const handleUploadClick = () => {
     setUploadState(0);
     fileInput.current?.click();
@@ -21,13 +29,31 @@ export const useFileUpload = () => {
     e: ChangeEvent<HTMLInputElement>,
   ) => {
     const files = e.target.files;
-    setSelectedFiles(files);
-
     if (files && files.length > 0) {
-      const fileSize = formatFileSize(files[0].size);
+      uploadFile(files);
+    } else {
+      setUploadState(0);
+      setFileName('No file selected');
+    }
+  };
 
-      setUploadState(80);
-      setFileName(`${files[0].name} - ${fileSize}`);
+  // Drag and drop functions
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+
+    const files = event.dataTransfer.files;
+    if (files && files.length > 0) {
+      uploadFile(files);
     } else {
       setUploadState(0);
       setFileName('No file selected');
@@ -39,10 +65,11 @@ export const useFileUpload = () => {
     fileName,
     handleUploadClick,
     handleFileUpload,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
     setUploadState,
     setFileName,
-    selectedFiles,
-    setSelectedFiles,
     fileInput,
   };
 };

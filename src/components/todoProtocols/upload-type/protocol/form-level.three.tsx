@@ -17,6 +17,7 @@ import { useSelection } from "@/hooks";
 import { setStateAction } from "@/types";
 import { AddBtn } from "@/components/shared";
 import { departmentOptions, subFolderOptions } from "../../data";
+import { useProtocolUploadContext } from "@/context/protocol-upload.context";
 
 const DateInput = ({
   revisionDate,
@@ -37,17 +38,31 @@ const DateInput = ({
 );
 
 export function FormLevelThree() {
-  const { groups, handleChange, removeGroup, addGroup } = useSelection();
-
-  const [shouldCopyToGroup, setShouldCopyToGroup] = useState("");
-  const [shouldBeRuleOfLife, setShouldBeRuleOfLife] = useState("");
-  const [shouldAdjustDate, setShouldAdjustDate] = useState("");
-  const [shouldBeABronchure, setShouldBeABronchure] = useState("");
-
-  const [revisionDate, setRevisionDate] = useState("");
+  const { groups, handleChange, removeGroup, addGroup } = useSelection(
+    "department",
+    "subfolder"
+  );
+  const {
+    shouldCopyToGroup,
+    shouldBeRuleOfLife,
+    setShouldBeRuleOfLife,
+    setShouldCopyToGroup,
+    shouldAdjustDate,
+    setShouldAdjustDate,
+    shouldBeABronchure,
+    setShouldBeABronchure,
+    revisionDate,
+    setRevisionDate,
+    setGroupsToCopy,
+  } = useProtocolUploadContext();
 
   const canCopyToGroup = shouldCopyToGroup === "Yes";
   const canAdjustDate = shouldAdjustDate === "Yes";
+
+  const handleSelection = (value: string, id: string, fieldName: string) => {
+    const updatedGroups = handleChange(id, fieldName, value);
+    setGroupsToCopy(updatedGroups);
+  };
 
   return (
     <Box sx={baseStyles.box} w="100%">
@@ -71,7 +86,7 @@ export function FormLevelThree() {
                     sectionBPlaceholder="Select SubFolder"
                     fieldALabel="Department"
                     fieldBLabel="SubFolder"
-                    handleChange={handleChange}
+                    handleSelection={handleSelection}
                     removeGroup={removeGroup}
                   />
                 )

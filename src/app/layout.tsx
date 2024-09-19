@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { fonts } from "@/theme/fonts";
 import { Provider as ChakraProvider } from "./chakra.provider";
+import { ProtocolUploadProvider } from "@/context/protocol-upload.context";
+import { ChatBtn } from "@/components/shared";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={fonts.plus_jakarta_sans.variable}>
       <body>
-        <ChakraProvider>{children}</ChakraProvider>
+        <ChakraProvider>
+          <ProtocolUploadProvider>
+            {children}
+            <ChatBtn />
+          </ProtocolUploadProvider>
+        </ChakraProvider>
       </body>
     </html>
   );

@@ -1,7 +1,11 @@
 import { Flex } from "@chakra-ui/react";
 import { FunctionSelector } from "@/components/shared";
+import { useProtocolUploadContext } from "@/context/protocol-upload.context";
 
 export function FormLevelTwo() {
+  const { levelTwoForm, setLevelTwoForm, handleSelect } =
+    useProtocolUploadContext();
+
   const drafterFunctionOptions = [
     "Cardiologist",
     "Anesthesiologist",
@@ -22,6 +26,10 @@ export function FormLevelTwo() {
         desc="This is the person who will write the documents"
         sectionAOptions={drafterFunctionOptions}
         sectionBOptions={drafterColleagueOptions}
+        setFormData={setLevelTwoForm}
+        formData={levelTwoForm}
+        handleSelect={handleSelect}
+        name="drafter"
       />
       <FunctionSelector
         heading="Assessor"
@@ -30,6 +38,10 @@ export function FormLevelTwo() {
         sectionAOptions={drafterFunctionOptions}
         sectionBOptions={drafterColleagueOptions}
         isSmall
+        setFormData={setLevelTwoForm}
+        formData={levelTwoForm}
+        handleSelect={handleSelect}
+        name="assessor"
       />
     </Flex>
   );

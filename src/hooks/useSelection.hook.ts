@@ -1,19 +1,19 @@
 import { useState } from "react";
+import { generateId } from "@/utils/string.util";
 
-export const useSelection = () => {
-  const generateId = () => Math.random().toString(36).substr(2, 9);
-
-  const [groups, setGroups] = useState([{ id: generateId(), fieldA: "", fieldB: "" }]);
+export const useSelection = (fieldA: string, fieldB: string) => {
+  const [groups, setGroups] = useState([{ id: generateId(), [fieldA]: "", [fieldB]: "" }]);
 
   const handleChange = (id: string, field: string, value: string) => {
     const updatedGroups = groups.map((group) =>
       group.id === id ? { ...group, [field]: value } : group
     );
     setGroups(updatedGroups);
+    return updatedGroups;
   };
 
   const addGroup = () => {
-    setGroups([...groups, { id: generateId(), fieldA: "", fieldB: "" }]);
+    setGroups([...groups, { id: generateId(), [fieldA]: "", [fieldB]: "" }]);
   };
 
   const removeGroup = (id: string) => {
@@ -22,7 +22,6 @@ export const useSelection = () => {
       setGroups(updatedGroups);
     }
   };
-
 
   return {
     groups,

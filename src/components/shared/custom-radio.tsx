@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+
 import {
   FormControl,
   FormLabel,
@@ -17,9 +18,7 @@ export function CustomRadio({
   setValue,
   extraBtn,
   extraElement,
-}: // extraElement
-IRadio) {
-  // const [value, setValue] = useState("");
+}: IRadio) {
   const options = ["Yes", "No"];
 
   return (
@@ -32,15 +31,22 @@ IRadio) {
           {options.map((option, index) => (
             <Box
               as="button"
-              _focus={{ outline: "green" }}
               bg="brandGray"
               rounded="primary"
               w="8rem"
               textAlign="start"
               py={2}
               px={4}
+              onClick={() => setValue(option)}
+              borderWidth="1px"
+              borderColor={value === option ? "brandGreen.500" : "transparent"}
             >
-              <Radio key={index} value={option} fontWeight={500}>
+              <Radio
+                key={index}
+                value={option}
+                fontWeight={500}
+                colorScheme="brandGreen"
+              >
                 {option}
               </Radio>
             </Box>
