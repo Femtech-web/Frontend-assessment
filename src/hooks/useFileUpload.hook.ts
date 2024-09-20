@@ -19,7 +19,7 @@ export const useFileUpload = (setSelectedFiles: setStateAction<FileList | null>)
     setFileName(`${trimmedName}/${fileSize}`);
   }
 
-  // manual upload functions
+  // ----- manual upload functions ------
   const handleUploadClick = () => {
     setUploadState(0);
     fileInput.current?.click();
@@ -37,7 +37,7 @@ export const useFileUpload = (setSelectedFiles: setStateAction<FileList | null>)
     }
   };
 
-  // Drag and drop functions
+  // ----- Drag and drop functions ------
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(true);

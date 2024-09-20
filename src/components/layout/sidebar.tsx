@@ -56,7 +56,7 @@ const Sidebar = () => {
           ))}
         </VStack>
       </Flex>
-      <FormControl display="flex" alignItems="center" pl={6} mb={6}>
+      <FormControl display="flex" alignItems="center" pl={8} mb={6}>
         <FormLabel mb="0" fontSize="sm" fontWeight={600}>
           Dark mode
         </FormLabel>

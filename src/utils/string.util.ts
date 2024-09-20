@@ -8,3 +8,5 @@ export const trimFileName = (word: string) => {
 
   return word;
 }
+
+export const shortenNewsDesc = (desc: string) => `${desc.slice(0, 200)}...`
