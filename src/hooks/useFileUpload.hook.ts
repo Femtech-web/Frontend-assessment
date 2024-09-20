@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+
 import { useState, useRef, ChangeEvent, DragEvent } from "react";
 import { formatFileSize } from "@/utils/file.util";
 import { trimFileName } from "@/utils/string.util";
