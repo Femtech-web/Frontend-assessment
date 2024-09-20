@@ -5,7 +5,6 @@ import {
   classificationOptions,
   departmentOptions,
   departmentSubfolders,
-  subFolderOptions,
 } from "../../data";
 
 export function FormLevelOne() {
