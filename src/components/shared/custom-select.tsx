@@ -24,7 +24,7 @@ export function CustomSelect({
   name,
   onChange,
 }: SelectProps) {
-  const [selectedOption, setSelectedOption] = useState<any>(value);
+  const [selectedOption, setSelectedOption] = useState(value);
 
   const handleSelect = (option: string) => {
     setSelectedOption(option);

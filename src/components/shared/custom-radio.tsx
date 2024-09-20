@@ -13,7 +13,6 @@ import { IRadio } from "@/types";
 export function CustomRadio({
   label,
   isRequired,
-  name,
   value,
   setValue,
   extraBtn,
@@ -30,6 +29,7 @@ export function CustomRadio({
         <Stack direction="row" spacing={3}>
           {options.map((option, index) => (
             <Box
+              key={index}
               as="button"
               bg="brandGray"
               rounded="primary"
